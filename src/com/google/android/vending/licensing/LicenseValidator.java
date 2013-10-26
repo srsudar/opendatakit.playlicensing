@@ -88,6 +88,13 @@ class LicenseValidator {
      */
     public void verify(PublicKey publicKey, int responseCode, String signedData, String signature) {
         String userId = null;
+
+        if (signedData == null) {
+            Log.e(TAG, "Signed data is null.");
+            handleInvalidResponse();
+            return;
+        }
+
         // Skip signature check for unsuccessful requests
         ResponseData data = null;
         if (responseCode == LICENSED || responseCode == NOT_LICENSED ||
